@@ -1,2 +1,2 @@
-# KLARF - KLA Results File 
-The code in this project provides conversion utilities for the KLA Results File format to/from other test data electronic file formats.
+# KLARF - KLA Results File Reader
+The code in this subdirectory provides classes to open and read a KLARF format file into a KLARF object.  After reading the file, the data can be accessed through the class/record interface to further process the data.
