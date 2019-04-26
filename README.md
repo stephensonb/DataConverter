@@ -6,7 +6,7 @@ Currently recognized file types to convert / generate:
 - UDF (***U***ncompressed binary ***D***ata ***F***ile)
 - CDF (***C***ompressed binary ***D***ata ***F***ile)
 - KLARF (***KLA R***esults ***F***ile)
-- SINF (***S***emiconductor ***IN***k ***F***ile)
+- SINF (***S***implified ***I***ntegrator ***N***ested ***F***ormat)
        
 Available conversions:
 - UDF -> SINF OR CDF
