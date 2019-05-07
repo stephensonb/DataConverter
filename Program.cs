@@ -1,4 +1,12 @@
-﻿/**
+﻿using DataConverter.CDF;
+using DataConverter.KLARF;
+using DataConverter.SINF;
+using DataConverter.UDF;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+/**
  * DataConverter
  *      
  *      Program to convert various semiconductor data formats from one to the other, where conversion is possible.
@@ -17,16 +25,7 @@
  *      Brian Stephenson, 7/31/2014
  *      
  **/
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Tronics.DataConverter.UDF;
-using Tronics.DataConverter.CDF;
-using Tronics.DataConverter.KLARF;
-using Tronics.DataConverter.SINF;
-
-namespace Tronics
+namespace DataConverter
 {
     static class DataCvt
     {
@@ -104,16 +103,16 @@ namespace Tronics
 
             if (InputType == "UDF")
             {
-                UDF newUDF = new UDF();
+                UDFile newUDF = new UDFile();
                 newUDF.ReadFile(InputFile);
 
                 switch (OutputType)
                 {
                     case "CDF":
-                        CDF.ParseUDF(newUDF).WriteFile(OutputFile);
+                        CDFile.ParseUDF(newUDF).WriteFile(OutputFile);
                         break;
                     case "SINF":
-                        SINF.Parse(newUDF).WriteFile(OutputFile);
+                        SINFile.Parse(newUDF).WriteFile(OutputFile);
                         break;
                     default:
                         PrintUsage();
@@ -126,16 +125,16 @@ namespace Tronics
             {
                 if (InputType == "CDF")
                 {
-                    CDF newCDF = new CDF();
+                    CDFile newCDF = new CDFile();
                     newCDF.ReadFile(InputFile);
 
                     switch (OutputType)
                     {
                         case "UDF":
-                            UDF.ParseCDF(newCDF).WriteFile(OutputFile);
+                            UDFile.ParseCDF(newCDF).WriteFile(OutputFile);
                             break;
                         case "SINF":
-                            SINF.Parse(newCDF).WriteFile(OutputFile);
+                            SINFile.Parse(newCDF).WriteFile(OutputFile);
                             break;
                         default:
                             PrintUsage();
@@ -147,14 +146,14 @@ namespace Tronics
                 {
                     if (InputType == "KLARF")
                     {
-                        List<SINF> sf = new List<SINF>();
+                        List<SINFile> sf = new List<SINFile>();
                         KLARFParser kp = new KLARFParser();
-                        KLARF newKLARF = kp.ReadFile(InputFile);
+                        KLARFile newKLARF = kp.ReadFile(InputFile);
 
                         switch (OutputType)
                         {
                             case "SINF":
-                                sf = SINF.Parse(newKLARF);
+                                sf = SINFile.Parse(newKLARF);
                                 break;
                             default:
                                 PrintUsage();

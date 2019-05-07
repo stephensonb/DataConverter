@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
-
-namespace Tronics.DataConverter.UDF
+﻿namespace DataConverter.UDF
 {
     public class Batch : BinaryFormatter
     {

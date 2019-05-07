@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
 
-namespace Tronics.DataConverter.UDF
+namespace DataConverter.UDF
 {
 
-	/// Bin summary record (Bnsum):
+    /// Bin summary record (Bnsum):
     ///
     ///	Each Bnsum indicates the number of times a device was placed in the
-	/// specified bin category.
+    /// specified bin category.
 
     public class Bnsum : BinaryFormatter
     {

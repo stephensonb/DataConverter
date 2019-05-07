@@ -1,16 +1,11 @@
-﻿using System;
+﻿using DataConverter.CDF;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using System.Text;
-using System.Runtime.InteropServices;
+using System.Linq;
 
-namespace Tronics.DataConverter.UDF
+namespace DataConverter.UDF
 {
-    // Converted from original UDF source code by Bob Farrier/Daris Nevil - February 14, 1989
-    //
-    // Tronics MEMS, Inc.
-    //
     // C# UDF Reader/Writer implementation
     //
     // Brian Stephenson, June 4, 2014
@@ -18,7 +13,7 @@ namespace Tronics.DataConverter.UDF
     //
 
     // Object to encapsulate an entire UDF file in memory, read in from a path passed to Open
-    public class UDF : BinaryFormatter
+    public class UDFile : BinaryFormatter
     {
         protected const Int32 NOMEAS = 0xFFFF;
 
@@ -30,7 +25,7 @@ namespace Tronics.DataConverter.UDF
         public List<Trsum> TestResultSummaries;
         public List<Bnsum> BinResultSummaries;
 
-        public UDF()
+        public UDFile()
         {
             Header = new Headr();
             Batches = new List<Batch>();
@@ -57,9 +52,9 @@ namespace Tronics.DataConverter.UDF
             return DieResults.FirstOrDefault(x => x.DieDescription.dienum == die);
         }
 
-        public static UDF ParseCDF(CDF.CDF source, bool headerOnly=true)
+        public static UDFile ParseCDF(CDFile source, bool headerOnly=true)
         {
-            UDF newUDF = new UDF();
+            UDFile newUDF = new UDFile();
 
             Trsum tsum;
 
@@ -195,7 +190,7 @@ namespace Tronics.DataConverter.UDF
             return newUDF;
         }
 
-        public static UDF ParseKLARF(KLARF.KLARF source)
+        public static UDFile ParseKLARF(KLARF.KLARFile source)
         {
             // Not implemented
             throw new NotImplementedException("UDF.ParseKLARF method not implemented yet!  Gosh!!!");

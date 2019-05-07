@@ -1,31 +1,16 @@
-﻿using System;
+﻿using DataConverter.CDF;
+using DataConverter.UDF;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using Tronics.DataConverter;
+using System.Linq;
 
-namespace Tronics.DataConverter.SINF
+namespace DataConverter.SINF
 {
-    public class Die
-    {
-        public int X;
-        public int Y;
-        public int bin;
-    }
-
-    public class BinCounter
-    {
-        public int count=0;
-        public bool pass=true;
-    }
-
     /// <summary>
     /// SINF - Wafer map binning information file format object.
     /// </summary>
-    public class SINF 
+    public class SINFile 
     {
         private string _fn_loc;
         private static int _min_row;
@@ -47,7 +32,7 @@ namespace Tronics.DataConverter.SINF
         public Dictionary<int, BinCounter> BinCounts {get; set;}
         public SINFMapTypeOptions SINFMapType { get; set; }
 
-        public SINF()
+        public SINFile()
         {
             Device = "";
             LotID = "";
@@ -230,9 +215,9 @@ namespace Tronics.DataConverter.SINF
         /// SINF.Parse(myCDF).WriteFile("c:\sinfdata"); // Parses the CDF file into a new object, then calls 'WriteFile' on the returned object, storing the resulting SINF file in c:\sinfdata.
         /// </code>
         /// </example>
-        public static SINF Parse(CDF.CDF source)
+        public static SINFile Parse(CDFile source)
         {
-            SINF sf = new SINF();
+            SINFile sf = new SINFile();
 
             Console.Write(string.Format("Parsing CDF file into SINF file.  {0} die to parse...",source.Header.ddcs));
 
@@ -290,9 +275,9 @@ namespace Tronics.DataConverter.SINF
         /// SINF.Parse(myUDF).WriteFile("c:\sinfdata"); // Parses the UDF file into a new object, then calls 'WriteFile' on the returned object, storing the resulting SINF file in c:\sinfdata.
         /// </code>
         /// </example>
-        public static SINF Parse(UDF.UDF source)
+        public static SINFile Parse(UDFile source)
         {
-            SINF sf = new SINF
+            SINFile sf = new SINFile
             {
                 Device = source.Header.catlist,
                 FnLoc = source.Header.flat,
@@ -340,19 +325,19 @@ namespace Tronics.DataConverter.SINF
         /// SINF.Parse(myKLARF).WriteFile("c:\sinfdata"); // Parses the KLARF file into a new object, then calls 'WriteFile' on the returned object, storing the resulting SINF file in c:\sinfdata.
         /// </code>
         /// </example>
-        public static List<SINF> Parse(KLARF.KLARF source)
+        public static List<SINFile> Parse(KLARF.KLARFile source)
         {
             int xindex=0;
             int yindex=0;
             int binindex=0;
 
-            List<SINF> result = new List<SINF>();
+            List<SINFile> result = new List<SINFile>();
 
             // Only process the wafers in the first lot found in the KLARF file.  Multi lot KLARF files
             // are not handled.
             foreach(KLARF.WaferRecord wr in source.Lots[0].Wafers)
             {
-                SINF sf = new SINF
+                SINFile sf = new SINFile
                 {
                     Device = source.Lots[0].DeviceID,
                     FnLoc = source.Lots[0].OrientationMarkLocation,

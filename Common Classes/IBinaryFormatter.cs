@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Tronics.DataConverter
+namespace DataConverter
 {
     /// <summary>
     /// The IBinaryFormatter interface defines the methods implemented for serializing and deserializing public fields in an object.

@@ -1,12 +1,10 @@
-﻿using System;
+﻿using DataConverter.UDF;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
-using System.Text;
-using System.Runtime.InteropServices;
-using Tronics.DataConverter;
+using System.Linq;
 
-namespace Tronics.DataConverter.CDF
+namespace DataConverter.CDF
 {
     // Converted from original CDF source code by Bob Farrier/Daris Nevil - February 14, 1989
     //
@@ -17,11 +15,11 @@ namespace Tronics.DataConverter.CDF
     // Brian Stephenson, June 4, 2014
     //
     //
-    
+
     /// <summary>
     /// CDF - Compressed Data Format Class
     /// </summary>
-    public class CDF : BinaryFormatter 
+    public class CDFile : BinaryFormatter 
     {
         protected const Int32 NOMEAS = 0xFFFF;
 
@@ -32,7 +30,7 @@ namespace Tronics.DataConverter.CDF
         public List<Tdc> TestDescriptions;
         public List<DeviceResult> DieResults;
 
-        public CDF()
+        public CDFile()
         {
             Header = new Hdc();
             Batches = new List<Bth>();
@@ -247,9 +245,9 @@ namespace Tronics.DataConverter.CDF
         /// 
         /// </code>
         /// </example>
-        public static CDF ParseUDF(UDF.UDF source)
+        public static CDFile ParseUDF(UDFile source)
         {
-            CDF newCDF = new CDF();
+            CDFile newCDF = new CDFile();
 
             // Map the UDF header to the CDF Header
             newCDF.Header.swtyp = source.Header.swtyp;
